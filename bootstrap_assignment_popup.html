@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <table class="table table-hover" id="table1" data-bs-target="#myModal" data-bs-toggle="modal">
+ 
+        </table>
+        <input type="button" value="Show pop up" data-bs-toggle="modal" data-bs-target="#myModal">
+              
+    </div>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Header</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                   RollNo:<input type="text" id="txtRollno"><br>
+                   Name:<input type="text" id="txtName"><br>
+                   Marks:<input type="text" id="txtMarks"><br>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="funUpdate()">Update</button>
+                    <button type="button" class="btn btn-primary" onclick="funDelete()">Delete</button>
+                    <button type="button" class="btn btn-primary" onclick="funInsert()">Insert</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        studList=[{"rollno":1,"name":"AAA","marks":10},
+        {"rollno":2,"name":"BBB","marks":20},
+        {"rollno":3,"name":"CCC","marks":30},
+        {"rollno":4,"name":"DDD","marks":40},
+        {"rollno":5,"name":"EEE","marks":50},
+    ];
+
+    var tbl1=document.getElementById("table1");
+    window.onload=display;
+
+    function display(){
+        var str="<tr><td>RollNo</td><td>Name</td><td>Marks</td></tr>";
+        for(let i=0;i<studList.length;i++){
+            str+="<tr onclick=funClick(event)><td>"+studList[i].rollno+"</td><td>"+studList[i].name+"</td><td>"+studList[i].marks+"</td></tr>";
+        }
+        tbl1.innerHTML=str;
+
+    }
+    function funClick(event){
+        var x=event.target.parentNode;
+        var arr=x.querySelectorAll("td");
+        document.getElementById("txtRollno").value=arr[0].textContent;
+        document.getElementById("txtName").value=arr[1].textContent;
+        document.getElementById("txtMarks").value=arr[2].textContent;
+        
+    }
+        
+        function funUpdate(){
+            var rno=document.getElementById("txtRollno").value;
+            var mks=document.getElementById("txtMarks").value;
+            for(let i=0;i<studList.length;i++){
+                if(studList[i].rollno==rno){
+                    studList[i].marks=mks;
+               }
+            }
+        display();
+        }
+
+        function funDelete(){
+            var rno=document.getElementById("txtRollno").value;
+            for(let i=0;i<studList.length;i++){
+                if(rno==studList[i].rollno){
+                    studList.splice(i,1);
+                    break;
+                }
+            } 
+            display();
+
+        }
+
+        function funInsert(){
+            var rno=document.getElementById("txtRollno").value;
+            var name=document.getElementById("txtName").value;
+            var mks=document.getElementById("txtMarks").value;
+
+            var newStudent={
+                "rollno":rno,
+                "name":name,
+                "marks":mks,
+            };            
+            studList.push(newStudent);
+          
+          display();
+        }
+
+    </script>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

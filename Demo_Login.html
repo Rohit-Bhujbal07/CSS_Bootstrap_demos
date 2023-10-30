@@ -1,0 +1,37 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        UserName:<input type="text" id="txtUsername"><br>
+        Password:<input type="password" id="txtPassword"><br>
+        <input type="button" value="Login" onclick="funLogin()" id="btn1">
+        <div id="d1"></div>
+        <script>
+            var d1=document.getElementById("d1");
+            var count=0;
+            function funLogin(){
+                count++;
+                var username=document.getElementById("txtUsername");
+                var passwd=document.getElementById("txtPassword");
+                console.log(username.value,passwd.value);
+                if(username.value=="admin" && passwd.value=="admin"){
+                    d1.innerHTML="<b>Login successfull</b>";
+
+                }
+                else{
+                    d1.innerHTML="<b><font color=red>Retry</font></b>";
+                    username.value="";
+                    passwd.value="";
+
+                }
+                if(count==3){
+                    d1.innerHTML="<b>Account is Blocked!!</b>"
+                }
+                document.getElementById("btn1").disabled=true;
+                username.disabled=true;
+                passwd.disabled=true;
+            }
+        </script>
+    </body>
+</html>
